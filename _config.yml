@@ -1,2 +1,32 @@
-title: Stanley Yuan
-theme: jekyll-theme-minimal
+# _config.yml
+title: "Stanley Yuan's Portfolio"
+description: "Computer Science Graduate and Developer | Projects, Experience, and Skills"
+author: Stanley Yuan
+email: sutankeki@gmail.com
+theme: jekyll-theme-minimal # Change to any preferred Jekyll theme
+plugins: [jekyll-seo-tag] # Optional plugin for better SEO
+
+# Social Links (Optional)
+github_username: StanleyYuan # GitHub handle
+linkedin_username: stanleyyuan # LinkedIn handle
+
+# Custom Variables
+about: "Recent Computer Science graduate with experience in web design, tech support, and leading engineering projects."
+education:
+  degree: "B.Sc. in Computer Science with a Minor in Applied Mathematics"
+  school: "University of California, Merced"
+  gpa: "3.23"
+skills:
+  - "C++"
+  - "Python"
+  - "SQL"
+  - "OpenCV"
+  - "UI Development (Qt)"
+  - "Image Processing"
+projects:
+  - title: "Qt Graphing Visualizer"
+    description: "Graphing tool with UI features including buttons, sliders, and visualization. Worked on Newton’s method, gradient descent, and data customization."
+    link: "https://github.com/StanleyYuan/QtGraphingVisualizer"
+  - title: "Vision-Based Basil Yield Estimation"
+    description: "Image processing project using OpenCV to calculate basil yield from images, including color masking and yield estimation functions."
+    link: "https://github.com/StanleyYuan/BasilYieldEstimation"
