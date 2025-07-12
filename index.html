@@ -65,22 +65,6 @@
       50% { transform: translateY(-5px); }
     }
 
-    /* Water animation using sprite sheet */
-    .water {
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 100%; height: 200px;
-      background: url('assets/backgrounds/water_anim.png') repeat-x;
-      background-size: 400% 100%;
-      animation: waterMove 4s linear infinite;
-      z-index: 0;
-    }
-
-    @keyframes waterMove {
-      from { background-position: 0 0; }
-      to { background-position: -100% 0; }
-    }
-
     /* Sections */
     section { margin-top: 2rem; }
   </style>

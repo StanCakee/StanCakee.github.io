@@ -2,11 +2,11 @@ body {
   background-color: #001d3d;
   color: #f0e6d2;
   font-family: 'Press Start 2P', cursive;
-  background-image: url('assets/backgrounds/water_tile.png');
   image-rendering: pixelated;
   margin: 0;
   padding: 2rem;
 }
+
 
 main {
   max-width: 800px;
@@ -46,3 +46,23 @@ nav a {
   pointer-events: none;
   z-index: 1;
 }
+
+/* Water animation using sprite sheet */
+    .water {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 200px;
+      background: url('assets/backgrounds/water_anim.png') repeat-x;
+      background-size: 400% 100%;
+      animation: waterMove 4s linear infinite;
+      z-index: 0;
+    }
+
+    /* @keyframes waterMove {
+      from { background-position: 0 0; }
+      to { background-position: -100% 0; }
+    } */
+
+    background-size: cover;
+    animation: none;
+
