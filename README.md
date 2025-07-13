@@ -1,7 +1,7 @@
 # Stanley Yuan — Portfolio & Resume
 
 🎣 Welcome to my interactive portfolio:  
-**🔗 [Stanley's Fishing Lodge](https://stanleyyuan.github.io/)**  
+**🔗 [Stanley's Fishing Lodge](https://stancakee.github.io/)**  
 Explore my work, resume, and contact info — all in a retro fishing lodge setting!
 
 ---
@@ -16,26 +16,22 @@ I've supported infrastructure at San Francisco City Hall, built websites for int
 
 ## 📄 Resume
 
-✅ View it directly in my portfolio:  
-**[Visit Portfolio →](https://stanleyyuan.github.io)**
-
-📎 Or download the latest version here:  
-[📄 Stanley_Yuan_Resume_Updated_3_24.pdf](https://stanleyyuan.github.io/assets/Stanley_Yuan_Resume_Updated_3_24.pdf)
+[📄 Stanley_Yuan_Resume.pdf](assets/Stanley_Yuan_Resume.pdf)
 
 ---
 
 ## 🧰 Projects
 
-### [Qt Graphing Visualizer](https://github.com/StanleyYuan/QtGraphingVisualizer)
+### [Qt Graphing Visualizer](https://github.com/StanleyYuan/QtGraphingVisualizer)  
 A C++/Qt-based graphing tool with sliders, buttons, and real-time plotting. Implemented numerical methods like **Newton’s method** and **gradient descent** for visual exploration.
 
 ---
 
 ## 🧠 Skills
 
-- **Languages**: C++, Python, SQL  
-- **Tools**: OpenCV, Qt, Google Forms/Sheets, Wix, Spiceworks  
-- **Expertise**: UI Development, Image Processing, IT Support, Web Design
+- **Languages:** C++, Python, SQL  
+- **Tools:** OpenCV, Qt, Google Forms/Sheets, Wix, Spiceworks  
+- **Expertise:** UI Development, Image Processing, IT Support, Web Design
 
 ---
 

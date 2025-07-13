@@ -4,11 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Stanley's Fishing Lodge</title>
+  
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css" />
+  
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/favicon.png" />
+  
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
 </head>
 <body>
+  <!-- Loading Screen Overlay -->
   <div id="loading-screen">
     <div class="loader"></div>
   </div>
@@ -19,7 +26,7 @@
 
   <!-- Main Character Sprite -->
   <div class="fish-wrapper">
-    <img src="assets/sprites/fish.png" class="hero" alt="Fish Sprite" />
+    <img src="assets/sprites/fish.png" alt="Fish Sprite" class="hero" />
   </div>
 
   <!-- Ambient Sounds -->
@@ -30,23 +37,27 @@
 
   <main>
     <h1>🐟 Stanley's Fishing Lodge</h1>
+
+    <!-- Splash Text with random messages -->
+    <div id="splash-text" class="splash-text"></div>
+
     <p class="subtitle">Hiker • Fishing Lover • 🏓 Enthusiast</p>
 
-    <!-- Navigation -->
+    <!-- Navigation Links -->
     <nav>
       <a href="#" onclick="showPopup('journal'); return false;">Travel Journal</a>
       <a href="#" onclick="showPopup('projects'); return false;">Projects</a>
       <a href="#" onclick="showPopup('contact'); return false;">Contact</a>
     </nav>
 
-    <!-- Popups -->
-    <div id="popup-journal" class="popup">
-      <span class="close-btn" onclick="closePopup('journal')">[x]</span>
+    <!-- Popups: Hidden by default -->
+    <div id="popup-journal" class="popup" role="dialog" aria-modal="true" aria-labelledby="journal-title" tabindex="-1">
+      <span class="close-btn" onclick="closePopup('journal')" aria-label="Close popup">[x]</span>
       📖 I once caught a bug in my code and a trout on the same day...
     </div>
 
-    <div id="popup-projects" class="popup">
-    <span class="close-btn" onclick="closePopup('projects')">[x]</span>
+    <div id="popup-projects" class="popup" role="dialog" aria-modal="true" aria-labelledby="projects-title" tabindex="-1">
+      <span class="close-btn" onclick="closePopup('projects')" aria-label="Close popup">[x]</span>
       🧰 <strong>Resume Highlights</strong><br /><br />
       <strong>PCC Education Corporation</strong> – Web Designer (Apr 2024 – Feb 2025)<br />
       - Developed Wix website for international programs<br />
@@ -63,53 +74,67 @@
       <strong>Skills:</strong> C++, Python, SQL, OpenCV, Qt, IT Support, UI Design
     </div>
 
-
-    <div id="popup-contact" class="popup">
-      <span class="close-btn" onclick="closePopup('contact')">[x]</span>
+    <div id="popup-contact" class="popup" role="dialog" aria-modal="true" aria-labelledby="contact-title" tabindex="-1">
+      <span class="close-btn" onclick="closePopup('contact')" aria-label="Close popup">[x]</span>
       📬 Contact: <a href="mailto:sutankeki@gmail.com">sutankeki@gmail.com</a><br />
       🏓 Let’s play ping pong in SF!
     </div>
   </main>
 
-  <!-- Sound Toggle Icon -->
-  <img src="assets/sprites/fish_rod.png" alt="Toggle Water Sound" onclick="toggleSound()" class="sound-toggle" />
+  <!-- Sound Toggle Button -->
+  <img src="assets/sprites/fish_rod.png" alt="Toggle Water Sound" onclick="toggleSound()" class="sound-toggle" aria-label="Toggle ambient water sound" />
 
   <script>
-    // Show popup
+    // Show popup and play popup sound
     function showPopup(type) {
+      // Hide all popups first
       document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
+      
       const popup = document.getElementById('popup-' + type);
-      const popupSound = document.getElementById('popup-sound');
       if (popup) {
         popup.style.display = 'block';
         popup.style.top = '150px';
         popup.style.left = '50%';
         popup.style.transform = 'translateX(-50%)';
-        popupSound.play();
+        
+        // Play popup sound
+        document.getElementById('popup-sound').play();
+        
+        // Focus popup for accessibility
+        popup.focus();
       }
     }
 
-    // Close popup
+    // Close popup and play close sound
     function closePopup(type) {
-    const popup = document.getElementById('popup-' + type);
+      const popup = document.getElementById('popup-' + type);
       if (popup) {
         popup.style.display = 'none';
-        const closeSound = document.getElementById('close-sound');
-        closeSound.play();
+        document.getElementById('close-sound').play();
       }
     }
 
-
-    // Toggle ambient water sound
+    // Toggle ambient water sound play/pause
     let soundPlaying = false;
     function toggleSound() {
       const audio = document.getElementById('water-sound');
       if (!audio) return;
-      soundPlaying ? audio.pause() : audio.play();
+
+      if (soundPlaying) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
       soundPlaying = !soundPlaying;
     }
 
-    // Enable popup dragging
+    // Set initial volume for water sound
+    const waterSound = document.getElementById('water-sound');
+    if (waterSound) {
+      waterSound.volume = 0.3; // 30% volume
+    }
+
+    // Enable dragging of popup windows
     document.querySelectorAll('.popup').forEach(popup => {
       let isDragging = false, offsetX = 0, offsetY = 0;
 
@@ -118,13 +143,14 @@
         offsetX = e.clientX - popup.offsetLeft;
         offsetY = e.clientY - popup.offsetTop;
         popup.style.cursor = 'grabbing';
+        e.preventDefault(); // Prevent text selection while dragging
       });
 
       document.addEventListener('mousemove', e => {
         if (isDragging) {
           popup.style.left = `${e.clientX - offsetX}px`;
           popup.style.top = `${e.clientY - offsetY}px`;
-          popup.style.transform = 'none';
+          popup.style.transform = 'none'; // Remove centering transform while dragging
         }
       });
 
@@ -138,26 +164,48 @@
       popup.style.cursor = 'grab';
     });
 
-    // keyboard support for closing popups
+    // Keyboard support for closing all popups with Escape key
     document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
-      document.getElementById('close-sound').play();
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
+        document.getElementById('close-sound').play();
+      }
+    });
+
+    // Splash text messages
+    const splashTexts = [
+      "📖 I once caught a bug in my code and a trout on the same day...",
+      "🎣 The biggest fish stories are always true… or are they?",
+      "🛠️ Debugging: where you stare at code until it fixes itself.",
+      "🌊 Calm waters never made a skilled angler.",
+      "🏓 Ping pong and pixel art: a perfect combo!",
+      "⚓ Keep calm and cast on.",
+      "🐟 Fish whisperer in training.",
+      "⛵ Sailing through lines of code and waves alike."
+    ];
+
+    // Set random splash text on page load
+    function setRandomSplash() {
+      const splash = document.getElementById('splash-text');
+      if (splash) {
+        const randomIndex = Math.floor(Math.random() * splashTexts.length);
+        splash.textContent = splashTexts[randomIndex];
+      }
     }
-    
-});
 
-window.addEventListener('load', () => {
-  const loadingScreen = document.getElementById('loading-screen');
-  if (loadingScreen) {
-    loadingScreen.style.opacity = '0';
-    loadingScreen.style.pointerEvents = 'none';
-    setTimeout(() => {
-      loadingScreen.style.display = 'none';
-    }, 500); // fade out smoothly
-  }
-});
+    // Fade out loading screen on window load
+    window.addEventListener('load', () => {
+      setRandomSplash();
 
+      const loadingScreen = document.getElementById('loading-screen');
+      if (loadingScreen) {
+        loadingScreen.style.opacity = '0';
+        loadingScreen.style.pointerEvents = 'none';
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+        }, 500); // Smooth fade out
+      }
+    });
   </script>
 </body>
 </html>
