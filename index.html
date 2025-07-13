@@ -2,177 +2,193 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- Use responsive viewport for mobile friendliness -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Stanley's Fishing Lodge</title>
-  
+
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css" />
-  
+
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/favicon.png" />
-  
-  <!-- Google Fonts -->
+
+  <!-- Google Fonts: Press Start 2P for retro pixel style -->
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
 </head>
 <body>
   <!-- Loading Screen Overlay -->
-  <div id="loading-screen">
+  <div id="loading-screen" role="alert" aria-live="assertive" aria-busy="true" aria-label="Loading content">
     <div class="loader"></div>
   </div>
 
   <!-- Visual Effects -->
-  <div class="vignette"></div>
-  <div class="water"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="water" aria-hidden="true"></div>
 
   <!-- Main Character Sprite -->
-  <div class="fish-wrapper">
+  <div class="fish-wrapper" aria-hidden="true">
     <img src="assets/sprites/fish.png" alt="Fish Sprite" class="hero" />
   </div>
 
   <!-- Ambient Sounds -->
-  <audio id="water-sound" src="assets/sounds/wave.mp3" loop preload="auto"></audio>
-  <audio id="cast-sound" src="assets/sounds/cast_rod.mp3" preload="auto"></audio>
-  <audio id="popup-sound" src="assets/sounds/popup.mp3" preload="auto"></audio>
-  <audio id="close-sound" src="assets/sounds/close.mp3" preload="auto"></audio>
+  <!-- Use descriptive aria-labels to improve screen reader clarity -->
+  <audio id="water-sound" src="assets/sounds/wave.mp3" loop preload="auto" aria-label="Water wave ambient sound"></audio>
+  <audio id="cast-sound" src="assets/sounds/cast_rod.mp3" preload="auto" aria-label="Casting rod sound effect"></audio>
+  <audio id="popup-sound" src="assets/sounds/popup.mp3" preload="auto" aria-label="Popup open sound"></audio>
+  <audio id="close-sound" src="assets/sounds/close.mp3" preload="auto" aria-label="Popup close sound"></audio>
 
   <main>
     <h1>🐟 Stanley's Fishing Lodge</h1>
-
-    <!-- Splash Text with random messages -->
-    <div id="splash-text" class="splash-text"></div>
-
+    <div id="splash-text" class="splash-text" aria-live="polite" aria-atomic="true"></div>
     <p class="subtitle">Hiker • Fishing Lover • 🏓 Enthusiast</p>
 
-    <!-- Navigation Links -->
-    <nav>
-      <a href="#" onclick="showPopup('journal'); return false;">Travel Journal</a>
-      <a href="#" onclick="showPopup('projects'); return false;">Projects</a>
-      <a href="#" onclick="showPopup('contact'); return false;">Contact</a>
+    <!-- Navigation with semantic links and keyboard accessibility -->
+    <nav aria-label="Primary site navigation">
+      <a href="#" onclick="showPopup('resume'); return false;" role="button" aria-haspopup="dialog" aria-controls="popup-resume">Resume</a>
+      <a href="#" onclick="showPopup('projects'); return false;" role="button" aria-haspopup="dialog" aria-controls="popup-projects">Projects</a>
+      <a href="#" onclick="showPopup('contact'); return false;" role="button" aria-haspopup="dialog" aria-controls="popup-contact">Contact</a>
     </nav>
 
-    <!-- Popups: Hidden by default -->
-    <div id="popup-journal" class="popup" role="dialog" aria-modal="true" aria-labelledby="journal-title" tabindex="-1">
-      <span class="close-btn" onclick="closePopup('journal')" aria-label="Close popup">[x]</span>
-      📖 I once caught a bug in my code and a trout on the same day...
+    <!-- Popups: role="dialog" and aria-modal improve screen reader context -->
+    <div id="popup-resume" class="popup" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="resume-title" aria-hidden="true">
+      <div class="popup-header" onmousedown="initDrag(event, this.parentElement)" role="presentation">
+        <span class="close-btn" onclick="closePopup('resume')" aria-label="Close Resume popup" role="button" tabindex="0">[x]</span>
+      </div>
+      <div class="popup-content" id="resume-title">
+        <a id="resume-anchor"></a>
+        🧰 <strong>Resume</strong><br /><br />
+        <strong>PCC Education Corporation</strong> – Web Designer (Apr 2024 – Feb 2025)<br />
+        - Developed Wix website for international programs<br />
+        - Integrated Google Forms/Sheets for automation<br />
+        - Contacted 500+ people, boosting participation 25%<br /><br />
+
+        <strong>Beta Nineties Computer INC</strong> – Tech Support (Jun 2023 – Nov 2023)<br />
+        - Resolved 50+ tickets via Spiceworks<br />
+        - Installed dual monitor setups at SF City Hall<br />
+        - Recovered systems after a security breach<br /><br />
+
+        <strong>Education:</strong><br />
+        B.S. in Computer Science, Minor in Applied Math (UC Merced, 2023)<br />
+        <strong>Skills:</strong> C++, Python, SQL, OpenCV, Qt, IT Support, UI Design
+      </div>
     </div>
 
-    <div id="popup-projects" class="popup" role="dialog" aria-modal="true" aria-labelledby="projects-title" tabindex="-1">
-      <span class="close-btn" onclick="closePopup('projects')" aria-label="Close popup">[x]</span>
-      🧰 <strong>Resume Highlights</strong><br /><br />
-      <strong>PCC Education Corporation</strong> – Web Designer (Apr 2024 – Feb 2025)<br />
-      - Developed Wix website for international programs<br />
-      - Integrated Google Forms/Sheets for automation<br />
-      - Contacted 500+ people, boosting participation 25%<br /><br />
-      
-      <strong>Beta Nineties Computer INC</strong> – Tech Support (Jun 2023 – Nov 2023)<br />
-      - Resolved 50+ tickets via Spiceworks<br />
-      - Installed dual monitor setups at SF City Hall<br />
-      - Recovered systems after a security breach<br /><br />
-      
-      <strong>Education:</strong><br />
-      B.S. in Computer Science, Minor in Applied Math (UC Merced, 2023)<br />
-      <strong>Skills:</strong> C++, Python, SQL, OpenCV, Qt, IT Support, UI Design
+    <div id="popup-projects" class="popup" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="projects-title" aria-hidden="true">
+      <div class="popup-header" onmousedown="initDrag(event, this.parentElement)" role="presentation">
+        <span class="close-btn" onclick="closePopup('projects')" aria-label="Close Projects popup" role="button" tabindex="0">[x]</span>
+      </div>
+      <div class="popup-content" id="projects-title">
+        🎮 <strong>Projects</strong><br /><br />
+        - Personal fishing-themed portfolio site using HTML/CSS/JS<br />
+        - GitHub-hosted retro site with draggable popups and sprite animation<br />
+        - Job scraper using MySQL + Google Maps API to find SF opportunities<br />
+        - Beginner Cantonese tutor flyer, Google Form & lesson content builder
+      </div>
     </div>
 
-    <div id="popup-contact" class="popup" role="dialog" aria-modal="true" aria-labelledby="contact-title" tabindex="-1">
-      <span class="close-btn" onclick="closePopup('contact')" aria-label="Close popup">[x]</span>
-      📬 Contact: <a href="mailto:sutankeki@gmail.com">sutankeki@gmail.com</a><br />
-      🏓 Let’s play ping pong in SF!
+    <div id="popup-contact" class="popup" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="contact-title" aria-hidden="true">
+      <div class="popup-header" onmousedown="initDrag(event, this.parentElement)" role="presentation">
+        <span class="close-btn" onclick="closePopup('contact')" aria-label="Close Contact popup" role="button" tabindex="0">[x]</span>
+      </div>
+      <div class="popup-content" id="contact-title">
+        📬 Contact: <a href="mailto:sutankeki@gmail.com">sutankeki@gmail.com</a><br />
+        🏓 Let’s play ping pong in SF!
+      </div>
     </div>
   </main>
 
   <!-- Sound Toggle Button -->
-  <img src="assets/sprites/fish_rod.png" alt="Toggle Water Sound" onclick="toggleSound()" class="sound-toggle" aria-label="Toggle ambient water sound" />
+  <button id="sound-toggle" aria-pressed="false" aria-label="Toggle water sound" class="sound-toggle" type="button">
+    <img src="assets/sprites/fish_rod.png" alt="" aria-hidden="true" />
+  </button>
 
   <script>
-    // Show popup and play popup sound
+    // Cache elements and set initial sound volume
+    const waterSound = document.getElementById('water-sound');
+    if (waterSound) waterSound.volume = 0.2; // Set water sound to 20% volume
+
+    let soundPlaying = false;
+    const soundToggleBtn = document.getElementById('sound-toggle');
+
+    // Toggle water sound on/off and update button aria-pressed attribute and styles
+    function toggleSound() {
+      if (!waterSound) return;
+      if (soundPlaying) {
+        waterSound.pause();
+        soundToggleBtn.setAttribute('aria-pressed', 'false');
+      } else {
+        waterSound.play();
+        soundToggleBtn.setAttribute('aria-pressed', 'true');
+      }
+      soundPlaying = !soundPlaying;
+      soundToggleBtn.classList.toggle('active', soundPlaying);
+    }
+
+    soundToggleBtn.addEventListener('click', toggleSound);
+
+    // Show popup dialog by id suffix, set initial position, play sound, and manage focus
     function showPopup(type) {
-      // Hide all popups first
-      document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
-      
+      document.querySelectorAll('.popup').forEach(popup => {
+        popup.style.display = 'none';
+        popup.setAttribute('aria-hidden', 'true');
+      });
+
       const popup = document.getElementById('popup-' + type);
       if (popup) {
         popup.style.display = 'block';
         popup.style.top = '150px';
         popup.style.left = '50%';
         popup.style.transform = 'translateX(-50%)';
-        
-        // Play popup sound
+        popup.setAttribute('aria-hidden', 'false');
         document.getElementById('popup-sound').play();
-        
-        // Focus popup for accessibility
         popup.focus();
       }
     }
 
-    // Close popup and play close sound
+    // Close popup dialog and play close sound
     function closePopup(type) {
       const popup = document.getElementById('popup-' + type);
       if (popup) {
         popup.style.display = 'none';
+        popup.setAttribute('aria-hidden', 'true');
         document.getElementById('close-sound').play();
       }
     }
 
-    // Toggle ambient water sound play/pause
-    let soundPlaying = false;
-    function toggleSound() {
-      const audio = document.getElementById('water-sound');
-      if (!audio) return;
-
-      if (soundPlaying) {
-        audio.pause();
-      } else {
-        audio.play();
-      }
-      soundPlaying = !soundPlaying;
-    }
-
-    // Set initial volume for water sound
-    const waterSound = document.getElementById('water-sound');
-    if (waterSound) {
-      waterSound.volume = 0.3; // 30% volume
-    }
-
-    // Enable dragging of popup windows
-    document.querySelectorAll('.popup').forEach(popup => {
-      let isDragging = false, offsetX = 0, offsetY = 0;
-
-      popup.addEventListener('mousedown', e => {
-        isDragging = true;
-        offsetX = e.clientX - popup.offsetLeft;
-        offsetY = e.clientY - popup.offsetTop;
-        popup.style.cursor = 'grabbing';
-        e.preventDefault(); // Prevent text selection while dragging
-      });
-
-      document.addEventListener('mousemove', e => {
-        if (isDragging) {
-          popup.style.left = `${e.clientX - offsetX}px`;
-          popup.style.top = `${e.clientY - offsetY}px`;
-          popup.style.transform = 'none'; // Remove centering transform while dragging
-        }
-      });
-
-      document.addEventListener('mouseup', () => {
-        if (isDragging) {
-          isDragging = false;
-          popup.style.cursor = 'grab';
-        }
-      });
-
-      popup.style.cursor = 'grab';
-    });
-
-    // Keyboard support for closing all popups with Escape key
+    // Close all popups on Escape key
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
-        document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
+        document.querySelectorAll('.popup').forEach(popup => {
+          popup.style.display = 'none';
+          popup.setAttribute('aria-hidden', 'true');
+        });
         document.getElementById('close-sound').play();
       }
     });
 
-    // Splash text messages
+    // Enable dragging popup dialogs by their header with correct grab offset
+    function initDrag(e, popup) {
+      e.preventDefault();
+
+      let offsetX = e.clientX - popup.offsetLeft;
+      let offsetY = e.clientY - popup.offsetTop;
+
+      function dragMove(event) {
+        popup.style.left = `${event.clientX - offsetX}px`;
+        popup.style.top = `${event.clientY - offsetY}px`;
+        popup.style.transform = 'none'; // Disable transform while dragging for proper positioning
+      }
+
+      function endDrag() {
+        document.removeEventListener('mousemove', dragMove);
+        document.removeEventListener('mouseup', endDrag);
+      }
+
+      document.addEventListener('mousemove', dragMove);
+      document.addEventListener('mouseup', endDrag);
+    }
+
+    // Splash texts to randomly display on page load
     const splashTexts = [
       "📖 I once caught a bug in my code and a trout on the same day...",
       "🎣 The biggest fish stories are always true… or are they?",
@@ -184,16 +200,13 @@
       "⛵ Sailing through lines of code and waves alike."
     ];
 
-    // Set random splash text on page load
+    // Set random splash text with animation
     function setRandomSplash() {
       const splash = document.getElementById('splash-text');
-      if (splash) {
-        const randomIndex = Math.floor(Math.random() * splashTexts.length);
-        splash.textContent = splashTexts[randomIndex];
-      }
+      if (splash) splash.textContent = splashTexts[Math.floor(Math.random() * splashTexts.length)];
     }
 
-    // Fade out loading screen on window load
+    // When window loads, fade out loading screen and show splash text
     window.addEventListener('load', () => {
       setRandomSplash();
 
@@ -201,9 +214,8 @@
       if (loadingScreen) {
         loadingScreen.style.opacity = '0';
         loadingScreen.style.pointerEvents = 'none';
-        setTimeout(() => {
-          loadingScreen.style.display = 'none';
-        }, 500); // Smooth fade out
+        // Delay to allow fade out effect before display none
+        setTimeout(() => loadingScreen.style.display = 'none', 500);
       }
     });
   </script>

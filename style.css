@@ -3,7 +3,7 @@ body {
   background-color: #001d3d;
   color: #f0e6d2;
   font-family: 'Press Start 2P', cursive;
-  image-rendering: pixelated;
+  image-rendering: pixelated; /* Pixelated look consistent with retro theme */
   margin: 0;
   padding: 2rem;
 }
@@ -28,6 +28,7 @@ h1 {
   margin-bottom: 1.5rem;
 }
 
+/* Navigation links styled for clarity and hover effect */
 nav a {
   color: #a5f3fc;
   text-decoration: none;
@@ -36,11 +37,13 @@ nav a {
   cursor: pointer;
 }
 
-nav a:hover {
+nav a:hover,
+nav a:focus {
   text-decoration: underline;
+  outline: none; /* Remove default outline but add focus style for accessibility if desired */
 }
 
-/* Fish Sprite with floating animation */
+/* Hero fish sprite */
 .hero {
   width: 48px;
   height: auto;
@@ -53,7 +56,7 @@ nav a:hover {
   50% { transform: translateY(-5px); }
 }
 
-/* Vignette overlay to darken edges */
+/* Vignette effect over full screen */
 .vignette {
   position: fixed;
   top: 0; left: 0;
@@ -64,36 +67,32 @@ nav a:hover {
   z-index: 1;
 }
 
-/* Animated Water background at bottom */
+/* Animated water background at bottom */
 .water {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 40vh; /* 40% of viewport height */
+  height: 30vh;
   background: url('assets/backgrounds/water_spritesheet.png') no-repeat;
-  background-size: calc(100% / 5) 40vh; /* width per frame, height full div */
-  animation: waterFrameAnimation 1s steps(5) infinite;
+  background-size: auto 100%;
+  animation: waterFrames 1s steps(5) infinite;
   image-rendering: pixelated;
   z-index: 1;
 }
 
-@keyframes waterFrameAnimation {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: -100% 0; /* move background left full width */
-  }
+@keyframes waterFrames {
+  to { background-position-x: -80px; }
 }
 
-/* Popup Windows */
+/* Popup dialog style */
 .popup {
   position: absolute;
   background: rgba(255, 255, 255, 0.95);
   border: 3px solid #00c2cb;
-  padding: 2rem;
-  width: 480px;
+  padding: 1rem 1rem 2rem;
+  width: 90%;
+  max-width: 480px;
   color: #2b2b2b;
   font-size: 14px;
   font-family: 'Courier New', monospace;
@@ -102,14 +101,21 @@ nav a:hover {
   user-select: none;
   box-shadow: 0 0 20px rgba(0,0,0,0.2);
   border-radius: 8px;
-  cursor: grab;
+  cursor: grab; /* Indicate draggable */
   line-height: 1.5;
+  /* For accessibility, consider outline on focus if popups are tabbable */
+}
+
+.popup-header {
+  position: relative;
+  height: 20px;
+  cursor: grab;
 }
 
 .close-btn {
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: -5px;
+  right: 10px;
   font-weight: bold;
   font-size: 16px;
   color: #00c2cb;
@@ -117,33 +123,46 @@ nav a:hover {
   user-select: none;
 }
 
-/* Sound Toggle Button */
+.popup-content {
+  margin-top: 1rem;
+}
+
+/* Sound toggle button */
 .sound-toggle {
   position: fixed;
-  right: 20px;                 /* Distance from right edge */
-  bottom: calc(40vh + 20px);  /* 20px above water top */
+  right: 20px;
+  bottom: calc(30vh + 20px);
   width: 48px;
   height: 48px;
   cursor: pointer;
   z-index: 10;
   user-select: none;
   transition: transform 0.2s ease;
+  border: none; /* Remove default button styles */
+  background: none;
+  padding: 0;
 }
 
-.sound-toggle:hover {
+.sound-toggle:hover,
+.sound-toggle:focus {
   transform: scale(1.1);
+  outline: none; /* Customize focus styles if needed for accessibility */
 }
 
-/* Wrapper for floating fish sprite */
+.sound-toggle.active {
+  filter: drop-shadow(0 0 6px #00f0ff);
+}
+
+/* Wrapper for fish sprite */
 .fish-wrapper {
   margin-bottom: 2rem;
   animation: float 2s ease-in-out infinite;
 }
 
-/* Splash text style with pulsing effect */
+/* Splash text styling with subtle pulse animation */
 .splash-text {
   font-family: 'Press Start 2P', cursive;
-  color: #fff8a6; /* light yellow */
+  color: #fff8a6;
   text-shadow: 2px 2px 4px #000;
   font-size: 16px;
   margin: 10px 0;
@@ -157,23 +176,23 @@ nav a:hover {
   100% { opacity: 1; transform: scale(1.05); }
 }
 
-/* Loading screen overlay */
+/* Loading screen styles */
 #loading-screen {
   position: fixed;
   top: 0; left: 0;
   width: 100vw;
   height: 100vh;
-  background: #0a1e2f; /* dark navy */
+  background: #0a1e2f;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
 }
 
-/* Spinner animation */
+/* Loader animation */
 .loader {
-  border: 8px solid #c4d9ff; /* light blue */
-  border-top: 8px solid #3b82f6; /* bright blue */
+  border: 8px solid #c4d9ff;
+  border-top: 8px solid #3b82f6;
   border-radius: 50%;
   width: 70px;
   height: 70px;
@@ -183,4 +202,21 @@ nav a:hover {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Responsive design: smaller padding and font size on small screens */
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+
+  .popup {
+    font-size: 12px;
+    padding: 1rem;
+  }
+
+  nav a {
+    display: block;
+    margin: 8px 0;
+  }
 }
