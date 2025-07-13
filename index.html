@@ -2,113 +2,101 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Stanley's Fishing Lodge</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <style>
-    /* Base styling */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Press Start 2P', cursive;
-      background-color: #001d3d;
-      color: #f0e6d2;
-      overflow-x: hidden;
-    }
-
-    /* Vignette overlay */
-    .vignette {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.7) 100%);
-      pointer-events: none; z-index: 1;
-    }
-
-    /* Main container */
-    main {
-      position: relative; z-index: 2;
-      max-width: 800px;
-      margin: 4rem auto;
-      background: rgba(0,0,0,0.7);
-      border: 4px double #82c0cc;
-      padding: 2rem;
-      text-align: center;
-      box-shadow: 0 0 60px rgba(0, 20, 50, 0.5);
-    }
-
-    h1 {
-      font-size: 1.5rem;
-      text-shadow: 1px 1px #2b2b2b;
-      margin-bottom: 1rem;
-    }
-
-    nav a {
-      color: #a5f3fc;
-      margin: 0 10px;
-      text-decoration: none;
-    }
-
-    nav a:hover { text-decoration: underline; }
-
-    /* Animated hero sprite */
-    .hero {
-      width: 64px;
-      display: block;
-      margin: 0 auto 1rem;
-      animation: float 2s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
-    /* Sections */
-    section { margin-top: 2rem; }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="vignette"></div>
   <div class="water"></div>
-  <main>
-    <!-- Ambient sounds -->
-    <audio id="water-sound" src="assets/sounds/water_loop.mp3" loop autoplay preload="auto"></audio>
-    <audio id="cast-sound" src="assets/sounds/cast_rod.mp3" preload="auto"></audio>
 
+  <!-- Ambient sound (toggle with icon) -->
+  <audio id="water-sound" src="assets/sounds/water_loop.mp3" loop preload="auto"></audio>
+  <audio id="cast-sound" src="assets/sounds/cast_rod.mp3" preload="auto"></audio>
+
+  <main>
     <img src="assets/sprites/fisherman.png" class="hero" alt="Fisherman Sprite" />
-    <h1>Welcome to Stanley's Fishing Lodge</h1>
-    <p class="subtitle">Adventurer • Fisherman • Web Dev</p>
+    <h1>🐟 Stanley's Fishing Lodge 🎮</h1>
+    <p class="subtitle">Adventurer • Fisherman • Web Dev • 🏓 Enthusiast</p>
 
     <nav>
-      <a href="#journal">Travel Journal</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+      <a href="#" onclick="showPopup('journal'); return false;">Travel Journal</a>
+      <a href="#" onclick="showPopup('projects'); return false;">Projects</a>
+      <a href="#" onclick="showPopup('contact'); return false;">Contact</a>
     </nav>
 
-    <section id="journal">
-      <h2>📖 Travel Journal</h2>
-      <p>I once caught a bug in my code and a trout on the same day...</p>
-    </section>
-
-    <section id="projects">
-      <h2>🧰 Projects</h2>
-      <p>Retro portfolio, pixel parser, oceanic API visualizer...</p>
-    </section>
-
-    <section id="contact">
-      <h2>📬 Contact</h2>
-      <p>Email me at <a href="mailto:fishmaster@example.com">fishmaster@example.com</a></p>
-      <button id="cast-btn">Cast Rod</button>
-    </section>
+    <div id="popup-journal" class="popup">
+      📖 I once caught a bug in my code and a trout on the same day...
+    </div>
+    <div id="popup-projects" class="popup">
+      🧰 Resume & Projects:<br />
+      <a href="assets/Stanley_Yuan_Resume_Updated_3_24.pdf" target="_blank" rel="noopener noreferrer">View Resume (PDF)</a>
+    </div>
+    <div id="popup-contact" class="popup">
+      📬 Contact: <a href="mailto:sutankeki@gmail.com">sutankeki@gmail.com</a><br />
+      🏓 Let’s play ping pong in SF!
+    </div>
   </main>
 
+  <img src="assets/icons/fishing_rod.png" alt="Toggle Water Sound" onclick="toggleSound()" class="sound-toggle" />
+
   <script>
-    // Play cast sound on button click
-    document.getElementById('cast-btn').addEventListener('click', () => {
-      document.getElementById('cast-sound').currentTime = 0;
-      document.getElementById('cast-sound').play();
+    // Show popup centered horizontally at 150px from top
+    function showPopup(type) {
+      document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
+      const popup = document.getElementById('popup-' + type);
+      if (popup) {
+        popup.style.display = 'block';
+        popup.style.top = '150px';
+        popup.style.left = '50%';
+        popup.style.transform = 'translateX(-50%)';
+      }
+    }
+
+    // Toggle ambient water sound on/off
+    let soundPlaying = false;
+    function toggleSound() {
+      const audio = document.getElementById('water-sound');
+      if (!audio) return;
+      if (soundPlaying) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
+      soundPlaying = !soundPlaying;
+    }
+
+    // Dragging logic for popups
+    document.querySelectorAll('.popup').forEach(popup => {
+      let isDragging = false;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      popup.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - popup.offsetLeft;
+        offsetY = e.clientY - popup.offsetTop;
+        popup.style.cursor = 'grabbing';
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+          popup.style.left = `${e.clientX - offsetX}px`;
+          popup.style.top = `${e.clientY - offsetY}px`;
+          popup.style.transform = 'none'; // Remove centering transform while dragging
+        }
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          popup.style.cursor = 'grab';
+        }
+      });
+
+      // Initialize cursor style
+      popup.style.cursor = 'grab';
     });
   </script>
 </body>

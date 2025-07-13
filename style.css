@@ -5,17 +5,19 @@ body {
   image-rendering: pixelated;
   margin: 0;
   padding: 2rem;
+  overflow-x: hidden;
 }
-
 
 main {
   max-width: 800px;
   margin: auto;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0, 0, 0, 0.7);
   border: 4px double #82c0cc;
   padding: 2rem;
   text-align: center;
   box-shadow: 0 0 60px rgba(0, 20, 50, 0.5);
+  position: relative;
+  z-index: 2;
 }
 
 h1 {
@@ -29,40 +31,93 @@ nav a {
   text-decoration: none;
   margin: 0 10px;
   display: inline-block;
+  cursor: pointer;
+}
+
+nav a:hover {
+  text-decoration: underline;
 }
 
 .hero {
   width: 64px;
   height: auto;
   margin-bottom: 1rem;
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 .vignette {
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.7) 100%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.7) 100%);
   pointer-events: none;
   z-index: 1;
 }
 
 /* Water animation using sprite sheet */
-    .water {
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 100%; height: 200px;
-      background: url('assets/backgrounds/water_anim.png') repeat-x;
-      background-size: 400% 100%;
-      animation: waterMove 4s linear infinite;
-      z-index: 0;
-    }
+.water {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 128px; /* Adjust based on tile height in image */
+  background: url('assets/backgrounds/calm-water-autotiles-anim.png') repeat-x;
+  background-size: 400% 100%; /* 4 frames in the sheet */
+  animation: waterMove 1.5s steps(4) infinite;
+  z-index: 0;
+}
 
-    /* @keyframes waterMove {
-      from { background-position: 0 0; }
-      to { background-position: -100% 0; }
-    } */
+@keyframes waterMove {
+  from { background-position: 0 0; }
+  to { background-position: -400% 0; }
+}
 
-    background-size: cover;
-    animation: none;
+body, .water {
+  image-rendering: pixelated;
+}
+
+.popup {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid #82c0cc;
+  padding: 1rem;
+  width: 300px;
+  color: #f0e6d2;
+  font-size: 12px;
+  font-family: 'Courier New', monospace;
+  display: none;
+  z-index: 10;
+  cursor: grab;
+  user-select: none;
+}
+
+.sound-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+  width: 32px;
+  cursor: pointer;
+}
+
+.fish-wrapper {
+  margin-bottom: 2rem;
+  animation: float 2s ease-in-out infinite;
+}
+
+.hero {
+  width: 48px; /* adjust size based on fish sprite */
+  height: auto;
+}
 
