@@ -69,15 +69,21 @@ nav a:hover {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 40vh;  /* 40% viewport height */
-  background: url('assets/backgrounds/water_anim.png') repeat-x;
-  animation: waveMove 10s linear infinite;
+  height: 32px; /* example scaled height */
+  background: url('assets/backgrounds/water_spritesheet.png') no-repeat;
+  background-size: 80px 32px; /* scale height accordingly */
+  animation: waterFrameAnimation 1s steps(5) infinite;
+  image-rendering: pixelated;
   z-index: 1;
 }
 
-@keyframes waveMove {
-  from { background-position-x: 0; }
-  to { background-position-x: 1000px; }
+@keyframes waterFrameAnimation {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -80px 0;
+  }
 }
 
 /* Popup Windows */
