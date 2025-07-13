@@ -1,42 +1,75 @@
-# Stanley Yuan's Portfolio
+# Stanley Yuan — Portfolio & Resume
 
-Welcome to my GitHub portfolio! I'm a **Computer Science graduate** with a minor in **Applied Mathematics** from UC Merced. I have experience in web design, tech support, and engineering project leadership. My skills include programming in **C++**, **Python**, **SQL**, and developing image processing projects with **OpenCV**.
+🎣 Welcome to my interactive portfolio:  
+**🔗 [Stanley's Fishing Lodge](https://stanleyyuan.github.io/)**  
+Explore my work, resume, and contact info — all in a retro fishing lodge setting!
 
 ---
 
-## About Me
+## 👨‍💻 About Me
 
-- **Degree**: B.Sc. in Computer Science, Minor in Applied Mathematics
-- **Education**: University of California, Merced | GPA: 3.23
-- **Current Role**: Web Designer at PCC Education Corporation
-- **Past Roles**: Tech Support at Beta Nineties Computer INC, Engineering Team Leader
+I'm a **Computer Science graduate** from UC Merced with a minor in **Applied Mathematics**. My interests span UI development, image processing, and improving systems for real-world users.
 
-## Experience
+I've supported infrastructure at San Francisco City Hall, built websites for international programs, and developed custom tools using C++ and Python.
 
-### PCC Education Corporation
-*Web Designer* | **April 2024 - Present**  
-- Designed and maintained a website using Wix to support international exchange programs.
+---
 
-### Beta Nineties Computer INC
-*Tech Support* | **June 2023 - November 2023**  
-- Built computers, provided IT support, worked with servers and Unifi Cloud.
+## 📄 Resume
 
-## Projects
+✅ View it directly in my portfolio:  
+**[Visit Portfolio →](https://stanleyyuan.github.io)**
+
+📎 Or download the latest version here:  
+[📄 Stanley_Yuan_Resume_Updated_3_24.pdf](https://stanleyyuan.github.io/assets/Stanley_Yuan_Resume_Updated_3_24.pdf)
+
+---
+
+## 🧰 Projects
 
 ### [Qt Graphing Visualizer](https://github.com/StanleyYuan/QtGraphingVisualizer)
-A graphing tool with interactive features like buttons, sliders, and customized visualization. Developed gradient descent and Newton’s method for graph calculations.
-
-### [Vision-Based Basil Yield Estimation](https://github.com/StanleyYuan/BasilYieldEstimation)
-An image processing project using OpenCV to estimate basil yield from images, employing color masking and object isolation techniques.
-
-## Skills
-
-- **Programming Languages**: C++, Python, SQL
-- **Tools**: OpenCV, Qt, Spiceworks
-- **Areas of Expertise**: Image Processing, UI Development, Web Design
+A C++/Qt-based graphing tool with sliders, buttons, and real-time plotting. Implemented numerical methods like **Newton’s method** and **gradient descent** for visual exploration.
 
 ---
 
-## Contact Me
+## 🧠 Skills
+
+- **Languages**: C++, Python, SQL  
+- **Tools**: OpenCV, Qt, Google Forms/Sheets, Wix, Spiceworks  
+- **Expertise**: UI Development, Image Processing, IT Support, Web Design
+
+---
+
+## 💼 Experience
+
+### PCC Education Corporation – *Web Designer*  
+**Apr 2024 – Feb 2025** | San Francisco, CA  
+- Developed and maintained a website using Wix to support international exchange programs.  
+- Integrated Google Forms and Sheets to streamline applications.  
+- Contacted 500+ people, increasing program participation by 25%.  
+- Managed visa/passport verification for full compliance.
+
+### Beta Nineties Computer INC – *Tech Support*  
+**Jun 2023 – Nov 2023** | San Francisco, CA  
+- Resolved 50+ tickets using Spiceworks, cutting issue resolution time by 40%.  
+- Installed 50+ dual monitor setups at SF City Hall.  
+- Handled post-cyberattack recovery: re-imaged systems, restored operations.
+
+---
+
+## 🎓 Education
+
+**B.S. in Computer Science**  
+*Minor: Applied Mathematics*  
+**University of California, Merced** — Aug 2023
+
+---
+
+## 📬 Contact
+
 📧 Email: [sutankeki@gmail.com](mailto:sutankeki@gmail.com)  
-💼 LinkedIn: [linkedin.com/in/stanleyyuan](https://linkedin.com/in/stanleyyuan)
+🔗 LinkedIn: [linkedin.com/in/stancake](https://www.linkedin.com/in/stancake)  
+🐙 GitHub: [@StanCakee](https://github.com/StanCakee)
+
+---
+
+> 🛠️ Portfolio updates coming regularly. Thanks for visiting the lodge!
