@@ -10,13 +10,16 @@
 <body>
   <div class="vignette"></div>
   <div class="water"></div>
+  <div class="fish-wrapper">
+  <img src="assets/sprites/fish.png" class="hero" alt="Fish Sprite" />
+  </div>
 
   <!-- Ambient sound (toggle with icon) -->
-  <audio id="water-sound" src="assets/sounds/water_loop.mp3" loop preload="auto"></audio>
-  <audio id="cast-sound" src="assets/sounds/cast_rod.mp3" preload="auto"></audio>
+  <audio id="water-sound" src="assets/sounds/sounds/578524__samsterbirdies__calm-ocean-waves.mp3.mp3" loop preload="auto"></audio>
+  <audio id="cast-sound" src="assets/sounds/sounds/725426__mwchristian95__fishing-rod-cast-swoosh.mp3.mp3" preload="auto"></audio>
 
   <main>
-    <img src="assets/sprites/fisherman.png" class="hero" alt="Fisherman Sprite" />
+    <img src="assets/sprites/fish.png" class="hero" alt="Fish Sprite" />
     <h1>🐟 Stanley's Fishing Lodge 🎮</h1>
     <p class="subtitle">Adventurer • Fisherman • Web Dev • 🏓 Enthusiast</p>
 
@@ -27,13 +30,16 @@
     </nav>
 
     <div id="popup-journal" class="popup">
+      <span class="close-btn" onclick="closePopup('journal')">×</span>
       📖 I once caught a bug in my code and a trout on the same day...
     </div>
     <div id="popup-projects" class="popup">
+      <span class="close-btn" onclick="closePopup('projects')">×</span>
       🧰 Resume & Projects:<br />
       <a href="assets/Stanley_Yuan_Resume_Updated_3_24.pdf" target="_blank" rel="noopener noreferrer">View Resume (PDF)</a>
     </div>
     <div id="popup-contact" class="popup">
+      <span class="close-btn" onclick="closePopup('contact')">×</span>
       📬 Contact: <a href="mailto:sutankeki@gmail.com">sutankeki@gmail.com</a><br />
       🏓 Let’s play ping pong in SF!
     </div>
@@ -57,7 +63,7 @@
     // Toggle ambient water sound on/off
     let soundPlaying = false;
     function toggleSound() {
-      const audio = document.getElementById('water-sound');
+      const audio = document.getElementById('sounds/578524__samsterbirdies__calm-ocean-waves.mp3');
       if (!audio) return;
       if (soundPlaying) {
         audio.pause();
