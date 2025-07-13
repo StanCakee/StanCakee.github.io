@@ -82,7 +82,7 @@ nav a:focus {
 }
 
 @keyframes waterFrames {
-  to { background-position-x: -80px; }
+  to { background-position-y: 80px; }
 }
 
 /* Popup dialog style */
@@ -127,13 +127,21 @@ nav a:focus {
   margin-top: 1rem;
 }
 
+.sound-toggle img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none; /* lets clicks go to the button */
+}
+
+
 /* Sound toggle button */
 .sound-toggle {
   position: fixed;
   right: 20px;
   bottom: calc(30vh + 20px);
-  width: 48px;
-  height: 48px;
+  width: 80px;
+  height: 80px;
   cursor: pointer;
   z-index: 10;
   user-select: none;
