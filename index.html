@@ -15,13 +15,13 @@
   </div>
 
   <!-- Ambient sound (toggle with icon) -->
-  <audio id="water-sound" src="assets/sounds/sounds/578524__samsterbirdies__calm-ocean-waves.mp3.mp3" loop preload="auto"></audio>
-  <audio id="cast-sound" src="assets/sounds/sounds/725426__mwchristian95__fishing-rod-cast-swoosh.mp3.mp3" preload="auto"></audio>
+  <audio id="water-sound" src="assets/sounds/wave.mp3" loop preload="auto"></audio>
+  <audio id="cast-sound" src="assets/sounds/cast_rod.mp3" preload="auto"></audio>
 
   <main>
     <img src="assets/sprites/fish.png" class="hero" alt="Fish Sprite" />
-    <h1>🐟 Stanley's Fishing Lodge 🎮</h1>
-    <p class="subtitle">Adventurer • Fisherman • Web Dev • 🏓 Enthusiast</p>
+    <h1>🐟 Stanley's Fishing Lodge </h1>
+    <p class="subtitle">Hiker • Fishing Lover • 🏓 Enthusiast</p>
 
     <nav>
       <a href="#" onclick="showPopup('journal'); return false;">Travel Journal</a>
@@ -45,7 +45,7 @@
     </div>
   </main>
 
-  <img src="assets/icons/fishing_rod.png" alt="Toggle Water Sound" onclick="toggleSound()" class="sound-toggle" />
+  <img src="assets/sprites/fish_rod.png" alt="Toggle Water Sound" onclick="toggleSound()" class="sound-toggle" />
 
   <script>
     // Show popup centered horizontally at 150px from top
@@ -63,7 +63,7 @@
     // Toggle ambient water sound on/off
     let soundPlaying = false;
     function toggleSound() {
-      const audio = document.getElementById('sounds/578524__samsterbirdies__calm-ocean-waves.mp3');
+      const audio = document.getElementById('water-sound');
       if (!audio) return;
       if (soundPlaying) {
         audio.pause();
