@@ -16,22 +16,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <!-- Loading Screen Overlay -->
+  <!-- Loading Screen Overlay: aria-live ensures screen reader notices loading state -->
   <div id="loading-screen" role="alert" aria-live="assertive" aria-busy="true" aria-label="Loading content">
-    <div class="loader"></div>
+    <div class="loader" aria-hidden="true"></div> <!-- loader visual only -->
   </div>
 
-  <!-- Visual Effects -->
+  <!-- Visual Effects (decorative): aria-hidden hides from assistive tech -->
   <div class="vignette" aria-hidden="true"></div>
   <div class="water" aria-hidden="true"></div>
 
-  <!-- Main Character Sprite -->
+  <!-- Main Character Sprite (decorative) -->
   <div class="fish-wrapper" aria-hidden="true">
     <img src="assets/sprites/fish.png" alt="Fish Sprite" class="hero" />
+    <div id="splash-text" class="splash-text" aria-live="polite" aria-atomic="true"></div>
   </div>
 
-  <!-- Ambient Sounds -->
-  <!-- Use descriptive aria-labels to improve screen reader clarity -->
+
+  <!-- Ambient Sounds: use aria-label to describe each sound for screen reader users -->
   <audio id="water-sound" src="assets/sounds/wave.mp3" loop preload="auto" aria-label="Water wave ambient sound"></audio>
   <audio id="cast-sound" src="assets/sounds/cast_rod.mp3" preload="auto" aria-label="Casting rod sound effect"></audio>
   <audio id="popup-sound" src="assets/sounds/popup.mp3" preload="auto" aria-label="Popup open sound"></audio>
@@ -39,19 +40,23 @@
 
   <main>
     <h1>🐟 Stanley's Fishing Lodge</h1>
+
+    <!-- Dynamic splash text with polite live region for screen readers -->
     <div id="splash-text" class="splash-text" aria-live="polite" aria-atomic="true"></div>
     <p class="subtitle">Hiker • Fishing Lover • 🏓 Enthusiast</p>
 
-    <!-- Navigation with semantic links and keyboard accessibility -->
+    <!-- Navigation: use <nav> and semantic links with role="button" for popup triggers -->
     <nav aria-label="Primary site navigation">
-      <a href="#" onclick="showPopup('resume'); return false;" role="button" aria-haspopup="dialog" aria-controls="popup-resume">Resume</a>
-      <a href="#" onclick="showPopup('projects'); return false;" role="button" aria-haspopup="dialog" aria-controls="popup-projects">Projects</a>
-      <a href="#" onclick="showPopup('contact'); return false;" role="button" aria-haspopup="dialog" aria-controls="popup-contact">Contact</a>
+      <a href="#" onclick="showPopup('resume'); return false;" role="button" aria-haspopup="dialog" aria-controls="popup-resume" tabindex="0">Resume</a>
+      <a href="#" onclick="showPopup('projects'); return false;" role="button" aria-haspopup="dialog" aria-controls="popup-projects" tabindex="0">Projects</a>
+      <a href="#" onclick="showPopup('contact'); return false;" role="button" aria-haspopup="dialog" aria-controls="popup-contact" tabindex="0">Contact</a>
     </nav>
 
-    <!-- Popups: role="dialog" and aria-modal improve screen reader context -->
+    <!-- Popups for Resume, Projects, and Contact -->
+    <!-- Use role="dialog" and aria-modal to improve accessibility -->
+    <!-- tabindex="-1" allows programmatic focus -->
     <div id="popup-resume" class="popup" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="resume-title" aria-hidden="true">
-      <div class="popup-header" onmousedown="initDrag(event, this.parentElement)" role="presentation">
+      <div class="popup-header" onmousedown="initDrag(event, this.parentElement)" role="presentation" aria-label="Drag handle for resume popup">
         <span class="close-btn" onclick="closePopup('resume')" aria-label="Close Resume popup" role="button" tabindex="0">[x]</span>
       </div>
       <div class="popup-content" id="resume-title">
@@ -74,20 +79,30 @@
     </div>
 
     <div id="popup-projects" class="popup" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="projects-title" aria-hidden="true">
-      <div class="popup-header" onmousedown="initDrag(event, this.parentElement)" role="presentation">
+      <div class="popup-header" onmousedown="initDrag(event, this.parentElement)" role="presentation" aria-label="Drag handle for projects popup">
         <span class="close-btn" onclick="closePopup('projects')" aria-label="Close Projects popup" role="button" tabindex="0">[x]</span>
       </div>
       <div class="popup-content" id="projects-title">
-        <h2>Projects</h2>
-        <h3>Qt Graphing Visualizer</h3>
-        <ul>
-          <li>Developed UI components including interactive graphing tools.</li>
-          <li>Implemented Newton’s method and gradient descent for visualization.</li>
-        </ul>
+        <h2 style="margin-bottom: 1rem;">Projects</h2>
+        <div class="project-entry">
+          <h3>Qt Graphing Visualizer</h3>
+          <p>A graphing UI tool that visualizes mathematical methods like Newton’s method and gradient descent.</p>
+          <p><strong>Tech:</strong> C++, Qt, OpenGL</p>
+        </div>
+
+        <!-- Example for future projects -->
+        <!--
+        <div class="project-entry">
+          <h3>Another Cool Project</h3>
+          <p>Brief description of the project...</p>
+          <p><strong>Tech:</strong> HTML, CSS, JS</p>
+        </div>
+        -->
+      </div>
     </div>
 
     <div id="popup-contact" class="popup" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="contact-title" aria-hidden="true">
-      <div class="popup-header" onmousedown="initDrag(event, this.parentElement)" role="presentation">
+      <div class="popup-header" onmousedown="initDrag(event, this.parentElement)" role="presentation" aria-label="Drag handle for contact popup">
         <span class="close-btn" onclick="closePopup('contact')" aria-label="Close Contact popup" role="button" tabindex="0">[x]</span>
       </div>
       <div class="popup-content" id="contact-title">
@@ -98,21 +113,24 @@
   </main>
 
   <!-- Sound Toggle Button -->
+  <!-- Use aria-pressed to reflect toggle state and aria-label for screen reader clarity -->
   <button id="sound-toggle" aria-pressed="false" aria-label="Toggle water sound" class="sound-toggle" type="button">
     <img src="assets/sprites/fish_rod.png" alt="" aria-hidden="true" />
   </button>
 
   <script>
-    // Cache elements and set initial sound volume
+    // Cache elements for performance
     const waterSound = document.getElementById('water-sound');
-    if (waterSound) waterSound.volume = 0.2; // Set water sound to 20% volume
-
-    let soundPlaying = false;
     const soundToggleBtn = document.getElementById('sound-toggle');
+    let soundPlaying = false;
 
-    // Toggle water sound on/off and update button aria-pressed attribute and styles
+    // Initialize water sound volume if available
+    if (waterSound) waterSound.volume = 0.2; // 20% volume for ambient water
+
+    // Toggle water sound on/off
     function toggleSound() {
       if (!waterSound) return;
+
       if (soundPlaying) {
         waterSound.pause();
         soundToggleBtn.setAttribute('aria-pressed', 'false');
@@ -126,8 +144,12 @@
 
     soundToggleBtn.addEventListener('click', toggleSound);
 
-    // Show popup dialog by id suffix, set initial position, play sound, and manage focus
+    /**
+     * Show popup by ID suffix, position in center top, play popup sound, and focus for accessibility.
+     * @param {string} type - One of 'resume', 'projects', 'contact'
+     */
     function showPopup(type) {
+      // Hide all popups and mark them hidden for screen readers
       document.querySelectorAll('.popup').forEach(popup => {
         popup.style.display = 'none';
         popup.setAttribute('aria-hidden', 'true');
@@ -135,48 +157,67 @@
 
       const popup = document.getElementById('popup-' + type);
       if (popup) {
+        // Display popup and position centered
         popup.style.display = 'block';
         popup.style.top = '150px';
         popup.style.left = '50%';
         popup.style.transform = 'translateX(-50%)';
         popup.setAttribute('aria-hidden', 'false');
-        document.getElementById('popup-sound').play();
+
+        // Play popup open sound
+        const popupSound = document.getElementById('popup-sound');
+        if (popupSound) popupSound.play();
+
+        // Focus popup for screen reader users and keyboard navigation
         popup.focus();
       }
     }
 
-    // Close popup dialog and play close sound
+    /**
+     * Close popup by ID suffix and play close sound
+     * @param {string} type - One of 'resume', 'projects', 'contact'
+     */
     function closePopup(type) {
       const popup = document.getElementById('popup-' + type);
       if (popup) {
         popup.style.display = 'none';
         popup.setAttribute('aria-hidden', 'true');
-        document.getElementById('close-sound').play();
+
+        const closeSound = document.getElementById('close-sound');
+        if (closeSound) closeSound.play();
       }
     }
 
-    // Close all popups on Escape key
+    // Close all popups on Escape key press, with sound feedback
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
         document.querySelectorAll('.popup').forEach(popup => {
           popup.style.display = 'none';
           popup.setAttribute('aria-hidden', 'true');
         });
-        document.getElementById('close-sound').play();
+        const closeSound = document.getElementById('close-sound');
+        if (closeSound) closeSound.play();
       }
     });
 
-    // Enable dragging popup dialogs by their header with correct grab offset
+    /**
+     * Initialize drag functionality on popup dialogs.
+     * Calculates grab offset to allow dragging from the exact cursor position.
+     * Disables transform during drag for consistent positioning.
+     * @param {MouseEvent} e - Mouse down event
+     * @param {HTMLElement} popup - The popup element to drag
+     */
     function initDrag(e, popup) {
       e.preventDefault();
 
+      // Calculate the cursor's offset from the popup's top-left corner
       let offsetX = e.clientX - popup.offsetLeft;
       let offsetY = e.clientY - popup.offsetTop;
 
       function dragMove(event) {
         popup.style.left = `${event.clientX - offsetX}px`;
         popup.style.top = `${event.clientY - offsetY}px`;
-        popup.style.transform = 'none'; // Disable transform while dragging for proper positioning
+        popup.style.transform = 'none'; // Disable centering transform during drag
       }
 
       function endDrag() {
@@ -184,11 +225,12 @@
         document.removeEventListener('mouseup', endDrag);
       }
 
+      // Attach mousemove and mouseup listeners for dragging
       document.addEventListener('mousemove', dragMove);
       document.addEventListener('mouseup', endDrag);
     }
 
-    // Splash texts to randomly display on page load
+    // Array of splash texts for random display
     const splashTexts = [
       "📖 I once caught a bug in my code and a trout on the same day...",
       "🎣 The biggest fish stories are always true… or are they?",
@@ -200,13 +242,17 @@
       "⛵ Sailing through lines of code and waves alike."
     ];
 
-    // Set random splash text with animation
+    /**
+     * Sets a random splash text from the array to the splash-text element.
+     */
     function setRandomSplash() {
       const splash = document.getElementById('splash-text');
-      if (splash) splash.textContent = splashTexts[Math.floor(Math.random() * splashTexts.length)];
+      if (splash) {
+        splash.textContent = splashTexts[Math.floor(Math.random() * splashTexts.length)];
+      }
     }
 
-    // When window loads, fade out loading screen and show splash text
+    // On window load: fade out loading screen and display random splash text
     window.addEventListener('load', () => {
       setRandomSplash();
 
@@ -214,8 +260,11 @@
       if (loadingScreen) {
         loadingScreen.style.opacity = '0';
         loadingScreen.style.pointerEvents = 'none';
-        // Delay to allow fade out effect before display none
-        setTimeout(() => loadingScreen.style.display = 'none', 500);
+
+        // Delay to allow CSS fade-out animation before hiding completely
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+        }, 500);
       }
     });
   </script>

@@ -6,26 +6,32 @@ body {
   image-rendering: pixelated; /* Pixelated look consistent with retro theme */
   margin: 0;
   padding: 2rem;
+  /* Suggestion: consider setting a min-height: 100vh to prevent layout jump on short content */
 }
 
 main {
   max-width: 800px;
   margin: auto;
-  background-color: rgba(0, 0, 0, 0.7);
-  border: 4px double #82c0cc;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent for layered effect */
+  border: 4px double #82c0cc; /* Double border for stylistic effect */
   padding: 2rem;
   text-align: center;
   box-shadow: 0 0 60px rgba(0, 20, 50, 0.5);
+  border-radius: 12px; /* Slightly rounded corners for modern polish */
 }
 
 h1 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
   text-shadow: 1px 1px #2b2b2b;
+  user-select: none; /* Prevent accidental selection */
 }
 
 .subtitle {
   margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #a5f3fc; /* Keep color consistent with splash text */
 }
 
 /* Navigation links styled for clarity and hover effect */
@@ -35,19 +41,22 @@ nav a {
   margin: 0 10px;
   display: inline-block;
   cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 nav a:hover,
 nav a:focus {
   text-decoration: underline;
-  outline: none; /* Remove default outline but add focus style for accessibility if desired */
+  outline: 2px solid #00c2cb; /* Restore focus outline for accessibility */
+  outline-offset: 2px;
+  color: #00c2cb;
 }
 
 /* Hero fish sprite */
 .hero {
-  width: 48px;
+  display: block; /* remove inline spacing */
+  width: 48px; /* your fish size */
   height: auto;
-  margin-bottom: 1rem;
   animation: float 2s ease-in-out infinite;
 }
 
@@ -74,7 +83,7 @@ nav a:focus {
   left: 0;
   width: 100%;
   height: 30vh;
-  background: url('assets/backgrounds/water_spritesheet.png') no-repeat;
+  background: url('assets/backgrounds/water_spritesheet.png') repeat-x;
   background-size: auto 100%;
   animation: waterFrames 1s steps(5) infinite;
   image-rendering: pixelated;
@@ -103,13 +112,19 @@ nav a:focus {
   border-radius: 8px;
   cursor: grab; /* Indicate draggable */
   line-height: 1.5;
-  /* For accessibility, consider outline on focus if popups are tabbable */
+  /* Suggestion: add focus style for keyboard users */
+}
+
+.popup:focus-within {
+  outline: 3px solid #00c2cb;
+  outline-offset: 2px;
 }
 
 .popup-header {
   position: relative;
   height: 20px;
   cursor: grab;
+  user-select: none;
 }
 
 .close-btn {
@@ -121,21 +136,42 @@ nav a:focus {
   color: #00c2cb;
   cursor: pointer;
   user-select: none;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: color 0.2s ease;
 }
 
+.close-btn:hover,
+.close-btn:focus {
+  color: #007e86;
+  outline: none; /* Add custom focus if desired */
+}
+
+/* Popup content */
 .popup-content {
   margin-top: 1rem;
 }
 
-.sound-toggle img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  pointer-events: none; /* lets clicks go to the button */
+/* Project entries for consistent formatting */
+.project-entry {
+  margin-bottom: 1.5rem;
+  text-align: left;
 }
 
+.project-entry h3 {
+  margin: 0 0 0.4rem;
+  font-size: 16px;
+  color: #007e86;
+}
 
-/* Sound toggle button */
+.project-entry p {
+  margin: 0.25rem 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* Sound toggle button styles */
 .sound-toggle {
   position: fixed;
   right: 20px;
@@ -154,29 +190,45 @@ nav a:focus {
 .sound-toggle:hover,
 .sound-toggle:focus {
   transform: scale(1.1);
-  outline: none; /* Customize focus styles if needed for accessibility */
+  outline: none; /* Remove default outline */
 }
 
 .sound-toggle.active {
   filter: drop-shadow(0 0 6px #00f0ff);
 }
 
-/* Wrapper for fish sprite */
+.sound-toggle img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none; /* Let clicks pass through to button */
+}
+
+/* Wrapper for fish sprite with floating animation */
 .fish-wrapper {
-  margin-bottom: 2rem;
+  position: relative; /* positioning context for absolute children */
+  display: inline-block; /* shrinkwrap to fish img size */
   animation: float 2s ease-in-out infinite;
+  margin-bottom: 2rem;
 }
 
 /* Splash text styling with subtle pulse animation */
 .splash-text {
+  position: absolute;
+  top: 50%;           /* vertical center relative to fish-wrapper */
+  left: 200%;         /* place it just right of fish */
+  transform: translateY(-50%) rotate(-12deg); /* vertically center and add style */
   font-family: 'Press Start 2P', cursive;
-  color: #fff8a6;
-  text-shadow: 2px 2px 4px #000;
-  font-size: 16px;
-  margin: 10px 0;
-  text-align: center;
+  font-size: 18px;
+  color: #a5f3fc;
+  text-shadow: 1px 1px 2px #000;
   user-select: none;
+  white-space: nowrap; /* keep it on one line */
+  pointer-events: none; /* clicks pass through */
+  z-index: 5;
   animation: splashPulse 3s ease-in-out infinite alternate;
+  max-width: 100px;
+  text-align: left;
 }
 
 @keyframes splashPulse {
@@ -212,7 +264,7 @@ nav a:focus {
   100% { transform: rotate(360deg); }
 }
 
-/* Responsive design: smaller padding and font size on small screens */
+/* Responsive design adjustments for smaller screens */
 @media (max-width: 600px) {
   body {
     padding: 1rem;
@@ -226,5 +278,13 @@ nav a:focus {
   nav a {
     display: block;
     margin: 8px 0;
+  }
+
+  .splash-text {
+    top: 20px;
+    right: 16px;
+    font-size: 9px;
+    max-width: 140px;
+    transform: rotate(-8deg);
   }
 }
